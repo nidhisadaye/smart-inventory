@@ -1,4 +1,4 @@
-app.controller("ProductController", ["$scope", "inventoryService", function($scope, inventoryService) {
+﻿app.controller("ProductController", ["$scope", "inventoryService", function($scope, inventoryService) {
 
     $scope.products = [];
 
@@ -197,6 +197,104 @@ app.controller("ProductController", ["$scope", "inventoryService", function($sco
                 console.error("Failed to delete product:", error);
                 alert("Failed to delete product.");
             });
+    };
+    // ============================================================
+    // MEMBER 2 SECTION — Stock Management + Inventory Calculations
+    // ============================================================
+
+    $scope.addStock = function(product, quantity) {
+
+        quantity = Number(quantity);
+
+        if (!product || isNaN(quantity) || quantity <= 0) {
+            window.alert("Please enter a valid quantity.");
+            return;
+        }
+
+        var updatedQty = Number(product.quantity || 0) + quantity;
+
+        inventoryService.updateProduct(product._id, {
+            quantity: updatedQty
+        })
+        .then(function() {
+            $scope.stockQty = null;
+            $scope.loadProducts();
+        })
+        .catch(function(error) {
+            console.error("Stock In failed:", error);
+            window.alert("Failed to add stock.");
+        });
+    };
+
+    $scope.removeStock = function(product, quantity) {
+
+        quantity = Number(quantity);
+
+        if (!product || isNaN(quantity) || quantity <= 0) {
+            window.alert("Please enter a valid quantity.");
+            return;
+        }
+
+        var currentQty = Number(product.quantity || 0);
+
+        if (currentQty < quantity) {
+            window.alert("Not enough stock to remove!");
+            return;
+        }
+
+        var updatedQty = currentQty - quantity;
+
+        inventoryService.updateProduct(product._id, {
+            quantity: updatedQty
+        })
+        .then(function() {
+            $scope.stockQty = null;
+            $scope.loadProducts();
+        })
+        .catch(function(error) {
+            console.error("Stock Out failed:", error);
+            window.alert("Failed to remove stock.");
+        });
+    };
+
+    $scope.getOutOfStockCount = function() {
+        return $scope.products.filter(function(product) {
+            return Number(product.quantity || 0) === 0;
+        }).length;
+    };
+
+    $scope.getAvailableCount = function() {
+        return $scope.products.length
+            - $scope.getLowStockCount()
+            - $scope.getOutOfStockCount();
+    };
+
+    $scope.getReorderQty = function(product) {
+        return Math.max(
+            Number(product.maxStock || 0) - Number(product.quantity || 0),
+            0
+        );
+    };
+
+    $scope.getCategorySummary = function() {
+
+        var summary = {};
+
+        $scope.products.forEach(function(product) {
+
+            if (!summary[product.category]) {
+                summary[product.category] = {
+                    name: product.category,
+                    count: 0,
+                    stock: 0
+                };
+            }
+
+            summary[product.category].count++;
+            summary[product.category].stock += Number(product.quantity || 0);
+        });
+
+        return Object.values(summary);
     };
 
     $scope.loadProducts();
