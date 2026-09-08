@@ -1175,3 +1175,339 @@ input:focus {
     }
 
 }
+
+/* =========================================
+   COLORFUL DASHBOARD CARDS
+   ========================================= */
+
+.dashboard-card:nth-child(1) {
+    background: linear-gradient(135deg, #ffffff 0%, #f0edff 100%) !important;
+    border-top: 4px solid #6d63ff !important;
+}
+
+.dashboard-card:nth-child(2) {
+    background: linear-gradient(135deg, #ffffff 0%, #eaf5ff 100%) !important;
+    border-top: 4px solid #3b82f6 !important;
+}
+
+.dashboard-card:nth-child(3) {
+    background: linear-gradient(135deg, #ffffff 0%, #eafaf3 100%) !important;
+    border-top: 4px solid #10b981 !important;
+}
+
+.dashboard-card:nth-child(4) {
+    background: linear-gradient(135deg, #ffffff 0%, #fff0f3 100%) !important;
+    border-top: 4px solid #ef476f !important;
+}
+
+.dashboard-card:nth-child(1) .card-icon {
+    background: #e8e4ff !important;
+    color: #635bff !important;
+}
+
+.dashboard-card:nth-child(2) .card-icon {
+    background: #e1efff !important;
+    color: #2684ff !important;
+}
+
+.dashboard-card:nth-child(3) .card-icon {
+    background: #dff7ec !important;
+    color: #0a9f68 !important;
+}
+
+.dashboard-card:nth-child(4) .card-icon {
+    background: #ffe4eb !important;
+    color: #e83e62 !important;
+}
+
+/* =========================================
+   COLORFUL ADD PRODUCT BUTTON
+   ========================================= */
+
+.add-product-button {
+    background: linear-gradient(135deg, #6d63ff, #8b5cf6) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 8px 20px rgba(109, 99, 255, 0.25) !important;
+    transition: all 0.2s ease !important;
+}
+
+.add-product-button:hover:not(:disabled) {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 26px rgba(109, 99, 255, 0.35) !important;
+}
+
+.add-product-button:disabled {
+    background: #cbd5e1 !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+}
+/* =========================================
+   COLORFUL SIDEBAR
+   ========================================= */
+
+.sidebar {
+    background: linear-gradient(180deg, #ffffff 0%, #f7f5ff 100%) !important;
+    border-right: 1px solid #e8e5ff !important;
+}
+
+.sidebar .logo-icon {
+    background: linear-gradient(135deg, #6d63ff, #8b5cf6) !important;
+    box-shadow: 0 10px 24px rgba(109, 99, 255, 0.28) !important;
+}
+
+.sidebar .nav-item.active {
+    background: linear-gradient(135deg, #eeeaff, #e4e0ff) !important;
+    color: #5b4bd8 !important;
+    border-left-color: #6d63ff !important;
+}
+
+.sidebar .nav-item:hover {
+    background: #f1efff !important;
+    color: #5b4bd8 !important;
+}
+/* =========================================
+   MEDIUM COLOR MAIN BACKGROUND
+   ========================================= */
+
+body {
+    background:
+        radial-gradient(circle at 85% 5%, rgba(109, 99, 255, 0.22), transparent 30%),
+        radial-gradient(circle at 10% 70%, rgba(59, 130, 246, 0.14), transparent 28%),
+        #eef0f8 !important;
+}
+
+.main-content {
+    background: transparent !important;
+}
+/* =========================================
+   SMART INVENTORY - VISUAL UPGRADE
+   ========================================= */
+
+/* Stronger page atmosphere */
+body {
+    background:
+        radial-gradient(circle at 90% 0%, rgba(109, 99, 255, 0.28), transparent 32%),
+        radial-gradient(circle at 5% 55%, rgba(59, 130, 246, 0.16), transparent 28%),
+        linear-gradient(135deg, #eef1fa 0%, #f6f7fc 55%, #ecebfa 100%) !important;
+}
+
+/* Premium sidebar */
+.sidebar {
+    background: linear-gradient(180deg, #ffffff 0%, #f0efff 100%) !important;
+    border-right: 1px solid #ddd9ff !important;
+}
+
+.sidebar .logo-icon {
+    background: linear-gradient(135deg, #5146e5 0%, #8b5cf6 100%) !important;
+    box-shadow: 0 12px 28px rgba(81, 70, 229, 0.35) !important;
+}
+
+/* Stronger active navigation */
+.sidebar .nav-item.active {
+    background: linear-gradient(135deg, #ddd9ff 0%, #eeeaff 100%) !important;
+    color: #5146e5 !important;
+    border-left: 4px solid #635bff !important;
+    box-shadow: 0 6px 18px rgba(99, 91, 255, 0.12) !important;
+}
+
+/* Dashboard cards */
+.dashboard-card {
+    position: relative !important;
+    overflow: hidden !important;
+    border: none !important;
+    box-shadow: 0 14px 32px rgba(44, 50, 80, 0.10) !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 20px 40px rgba(44, 50, 80, 0.16) !important;
+}
+
+/* Individual card identities */
+.dashboard-card:nth-child(1) {
+    background: linear-gradient(135deg, #ffffff 0%, #e5e1ff 100%) !important;
+    border-top: 5px solid #635bff !important;
+}
+
+.dashboard-card:nth-child(2) {
+    background: linear-gradient(135deg, #ffffff 0%, #dcecff 100%) !important;
+    border-top: 5px solid #3b82f6 !important;
+}
+
+.dashboard-card:nth-child(3) {
+    background: linear-gradient(135deg, #ffffff 0%, #d9f5e8 100%) !important;
+    border-top: 5px solid #10b981 !important;
+}
+
+.dashboard-card:nth-child(4) {
+    background: linear-gradient(135deg, #ffffff 0%, #ffe0e8 100%) !important;
+    border-top: 5px solid #ef476f !important;
+}
+
+/* Bigger, stronger card icons */
+.dashboard-card .card-icon {
+    width: 46px !important;
+    height: 46px !important;
+    border-radius: 14px !important;
+    font-size: 20px !important;
+    font-weight: 800 !important;
+}
+
+.dashboard-card:nth-child(1) .card-icon {
+    background: #d7d1ff !important;
+    color: #5146e5 !important;
+}
+
+.dashboard-card:nth-child(2) .card-icon {
+    background: #cce2ff !important;
+    color: #1670e8 !important;
+}
+
+.dashboard-card:nth-child(3) .card-icon {
+    background: #c7f0dc !important;
+    color: #078653 !important;
+}
+
+.dashboard-card:nth-child(4) .card-icon {
+    background: #ffcbd8 !important;
+    color: #dc3157 !important;
+}
+
+/* Stronger product section */
+.products-section,
+.product-section,
+.add-product-section {
+    box-shadow: 0 16px 36px rgba(44, 50, 80, 0.09) !important;
+}
+
+/* Product heading accent */
+.products-title,
+.product-title {
+    color: #172554 !important;
+}
+
+/* Add product card */
+.add-product-button:not(:disabled) {
+    background: linear-gradient(135deg, #5146e5 0%, #8b5cf6 100%) !important;
+    box-shadow: 0 10px 24px rgba(81, 70, 229, 0.32) !important;
+}
+
+.add-product-button:not(:disabled):hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 15px 30px rgba(81, 70, 229, 0.42) !important;
+}
+/* =========================================
+   VIVID PROJECTOR-FRIENDLY DASHBOARD COLORS
+   ========================================= */
+
+.dashboard-card:nth-child(1) {
+    background: linear-gradient(135deg, #f1edff 0%, #ddd6ff 100%) !important;
+    border-top: 6px solid #5b4bd8 !important;
+}
+
+.dashboard-card:nth-child(2) {
+    background: linear-gradient(135deg, #eaf4ff 0%, #cfe5ff 100%) !important;
+    border-top: 6px solid #1877e8 !important;
+}
+
+.dashboard-card:nth-child(3) {
+    background: linear-gradient(135deg, #e8faf2 0%, #c9f1dd 100%) !important;
+    border-top: 6px solid #079669 !important;
+}
+
+.dashboard-card:nth-child(4) {
+    background: linear-gradient(135deg, #fff0f3 0%, #ffd1dc 100%) !important;
+    border-top: 6px solid #e83d62 !important;
+}
+
+.dashboard-card:nth-child(1) .card-icon {
+    background: #c9c0ff !important;
+    color: #4939c7 !important;
+}
+
+.dashboard-card:nth-child(2) .card-icon {
+    background: #bcdcff !important;
+    color: #0867d6 !important;
+}
+
+.dashboard-card:nth-child(3) .card-icon {
+    background: #afe9cd !important;
+    color: #057b55 !important;
+}
+
+.dashboard-card:nth-child(4) .card-icon {
+    background: #ffbccc !important;
+    color: #d52d53 !important;
+}
+/* =========================================
+   PRODUCT SECTION - PREMIUM COLORFUL STYLE
+   ========================================= */
+
+.products-section {
+    position: relative !important;
+}
+
+/* Add New Product card */
+.add-product-section {
+    background: linear-gradient(135deg, #ffffff 0%, #f4f2ff 100%) !important;
+    border: 1px solid #ddd9ff !important;
+    box-shadow: 0 14px 32px rgba(70, 65, 130, 0.10) !important;
+}
+
+/* Add product icon */
+.add-product-section .section-icon {
+    background: linear-gradient(135deg, #d8d2ff, #eeeaff) !important;
+    color: #5547d8 !important;
+}
+
+/* Form inputs */
+.add-product-section input,
+.add-product-section select {
+    background: #ffffff !important;
+    border: 1px solid #d6dbea !important;
+    transition: all 0.2s ease !important;
+}
+
+.add-product-section input:focus,
+.add-product-section select:focus {
+    border-color: #6d63ff !important;
+    box-shadow: 0 0 0 4px rgba(109, 99, 255, 0.12) !important;
+    outline: none !important;
+}
+
+/* Product cards */
+.product-card {
+    border: 1px solid #e1e4f0 !important;
+    box-shadow: 0 10px 26px rgba(40, 45, 80, 0.08) !important;
+    transition: all 0.25s ease !important;
+}
+
+.product-card:hover {
+    transform: translateY(-4px) !important;
+    border-color: #bdb7ff !important;
+    box-shadow: 0 16px 32px rgba(70, 65, 130, 0.15) !important;
+}
+
+/* Product name */
+.product-card h3,
+.product-card .product-name {
+    color: #172554 !important;
+}
+
+/* Category badge */
+.product-card .category,
+.product-card .product-category {
+    background: #eeeaff !important;
+    color: #5547d8 !important;
+    border-radius: 999px !important;
+    font-weight: 700 !important;
+}
+
+/* Price emphasis */
+.product-card .price {
+    color: #5146e5 !important;
+    font-weight: 800 !important;
+}
+
