@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="smartInventoryApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Inventory | Login</title>
+
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body ng-controller="LoginController">
+
+    <div class="login-page">
+
+        <div class="login-brand">
+            <div class="brand-mark">SI</div>
+
+            <div>
+                <h1>Smart Inventory</h1>
+                <p>Inventory management, simplified.</p>
+            </div>
+        </div>
+
+        <div class="login-card">
+
+            <div class="login-heading">
+                <span class="eyebrow">WELCOME BACK</span>
+                <h2>Sign in to your workspace</h2>
+                <p>Manage your products and inventory from one place.</p>
+            </div>
+
+            <form name="loginForm" novalidate ng-submit="login()">
+
+                <div class="field">
+                    <label>Email address</label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        ng-model="loginData.email"
+                        required>
+
+                    <small ng-if="loginForm.email.$touched && loginForm.email.$invalid">
+                        Please enter a valid email address.
+                    </small>
+                </div>
+
+                <div class="field">
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        ng-model="loginData.password"
+                        required>
+
+                    <small ng-if="loginForm.password.$touched && loginForm.password.$invalid">
+                        Password is required.
+                    </small>
+                </div>
+
+                <div class="login-options">
+                    <label class="remember">
+                        <input type="checkbox" ng-model="loginData.remember">
+                        <span>Remember me</span>
+                    </label>
+
+                    <a href="#" ng-click="$event.preventDefault()">Forgot password?</a>
+                </div>
+
+                <button
+                    type="submit"
+                    class="login-button"
+                    ng-disabled="loginForm.$invalid">
+                    Sign In
+                </button>
+
+                <p class="login-message" ng-if="loginMessage">
+                    {{ loginMessage }}
+                </p>
+
+                <div class="register-link">
+                    New to Smart Inventory?
+                    <a href="register.html">Create an account</a>
+                </div>
+
+            </form>
+
+        </div>
+
+        <p class="login-footer">
+            Smart Inventory Management System
+        </p>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/loginController.js"></script>
+
+</body>
+
+</html>
+

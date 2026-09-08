@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="smartInventoryApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Inventory | Create Account</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body ng-controller="RegisterController">
+
+    <div class="login-page">
+
+        <div class="login-brand">
+            <div class="brand-mark">SI</div>
+
+            <div>
+                <h1>Smart Inventory</h1>
+                <p>Inventory management, simplified.</p>
+            </div>
+        </div>
+
+        <div class="login-card">
+
+            <div class="login-heading">
+                <span class="eyebrow">GET STARTED</span>
+                <h2>Create your account</h2>
+                <p>Set up your workspace and start managing inventory.</p>
+            </div>
+
+            <form name="registerForm" novalidate ng-submit="register()">
+
+                <div class="field">
+                    <label>Full name</label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Enter your name"
+                        ng-model="registerData.name"
+                        required>
+
+                    <small ng-if="registerForm.name.$touched && registerForm.name.$invalid">
+                        Name is required.
+                    </small>
+                </div>
+
+                <div class="field">
+                    <label>Email address</label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        ng-model="registerData.email"
+                        required>
+
+                    <small ng-if="registerForm.email.$touched && registerForm.email.$invalid">
+                        Please enter a valid email address.
+                    </small>
+                </div>
+
+                <div class="field">
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Create a password"
+                        ng-model="registerData.password"
+                        minlength="6"
+                        required>
+
+                    <small ng-if="registerForm.password.$touched && registerForm.password.$invalid">
+                        Password must contain at least 6 characters.
+                    </small>
+                </div>
+
+                <button
+                    type="submit"
+                    class="login-button"
+                    ng-disabled="registerForm.$invalid">
+                    Create Account
+                </button>
+
+                <p class="login-message" ng-if="registerMessage">
+                    {{ registerMessage }}
+                </p>
+
+                <div class="register-link">
+                    Already have an account?
+                    <a href="login.html">Sign in</a>
+                </div>
+
+            </form>
+
+        </div>
+
+        <p class="login-footer">
+            Smart Inventory Management System
+        </p>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/registerController.js"></script>
+
+</body>
+
+</html>

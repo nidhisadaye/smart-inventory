@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="smartInventoryApp">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Inventory System</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body ng-controller="ProductController">
+
+    <div class="app-layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="brand">
+
+                <div class="brand-logo">SI</div>
+
+                <div>
+                    <strong>Smart Inventory</strong>
+                    <span>Management System</span>
+                </div>
+
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a href="index.html" class="nav-item active">
+                    <span class="nav-icon">⌂</span>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="#products" class="nav-item">
+                    <span class="nav-icon">▦</span>
+                    <span>Products</span>
+                </a>
+
+                <a href="#" class="nav-item"
+                   onclick="return false;">
+                    <span class="nav-icon">⚙</span>
+                    <span>Settings</span>
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <div class="user-profile">
+
+                    <div class="user-avatar" id="userAvatar">
+                        U
+                    </div>
+
+                    <div class="user-details">
+                        <strong id="userName">User</strong>
+                        <span>Administrator</span>
+                    </div>
+
+                </div>
+
+                <button type="button"
+                        class="logout-button"
+                        onclick="logoutUser()">
+
+                    <span>↪</span>
+                    Logout
+
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main-content">
+
+            <header class="page-header">
+
+                <div>
+
+                    <span class="page-eyebrow">
+                        INVENTORY OVERVIEW
+                    </span>
+
+                    <h1>
+                        Good to see you<span id="welcomeName"></span> 👋
+                    </h1>
+
+                    <p>
+                        Here's what's happening with your inventory today.
+                    </p>
+
+                </div>
+
+                <div class="header-status">
+
+                    <span class="status-dot"></span>
+
+                    System Online
+
+                </div>
+
+            </header>
+
+
+            <!-- DASHBOARD -->
+
+            <section class="dashboard">
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon purple">
+                        ▦
+                    </div>
+
+                    <span>Total Products</span>
+
+                    <strong>
+                        {{ products.length }}
+                    </strong>
+
+                    <small>
+                        Products in catalog
+                    </small>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon blue">
+                        ≋
+                    </div>
+
+                    <span>Total Quantity</span>
+
+                    <strong>
+                        {{ getTotalQuantity() }}
+                    </strong>
+
+                    <small>
+                        Units currently available
+                    </small>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-icon green">
+                        ₹
+                    </div>
+
+                    <span>Inventory Value</span>
+
+                    <strong>
+                        ₹{{ getInventoryValue() }}
+                    </strong>
+
+                    <small>
+                        Current stock valuation
+                    </small>
+
+                </div>
+
+
+                <div class="dashboard-card low-stock">
+
+                    <div class="card-icon red">
+                        !
+                    </div>
+
+                    <span>Low Stock Items</span>
+
+                    <strong>
+                        {{ getLowStockCount() }}
+                    </strong>
+
+                    <small>
+                        Needs attention
+                    </small>
+
+                </div>
+
+            </section>
+
+
+            <!-- PRODUCTS SECTION -->
+
+            <section id="products">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            CATALOG
+                        </span>
+
+                        <h2>
+                            Products
+                        </h2>
+
+                    </div>
+
+                    <span class="product-count">
+                        {{ products.length }} items
+                    </span>
+
+                </div>
+
+
+                <!-- ADD PRODUCT -->
+
+                <div class="add-product-card">
+
+                    <div class="form-heading">
+
+                        <div class="form-icon">
+                            +
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Add New Product
+                            </h3>
+
+                            <p>
+                                Add a product to your inventory catalog.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <form name="productForm"
+                        ng-submit="addProduct()"
+                        novalidate>
+
+                        <div class="form-field">
+
+                            <label>
+                                Product Name
+                            </label>
+
+                            <input type="text"
+                                   placeholder="e.g. Wireless Mouse"
+                                   ng-model="newProduct.name"
+                                   required>
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label>
+                                Category
+                            </label>
+
+                            <input type="text"
+                                   placeholder="e.g. Electronics"
+                                   ng-model="newProduct.category"
+                                   required>
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label>
+                                Price
+                            </label>
+
+                            <input type="number"
+                                   placeholder="0"
+                                   ng-model="newProduct.price"
+                                   min="0"
+                                   required>
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label>
+                                Quantity
+                            </label>
+
+                            <input type="number"
+                                   placeholder="0"
+                                   ng-model="newProduct.quantity"
+                                   min="0"
+                                   required>
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label>
+                                Minimum Stock
+                            </label>
+
+                            <input type="number"
+                                   placeholder="5"
+                                   ng-model="newProduct.minStock"
+                                   min="0"
+                                   required>
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label>
+                                Maximum Stock
+                            </label>
+
+                            <input type="number"
+                                   placeholder="100"
+                                   ng-model="newProduct.maxStock"
+                                   min="0"
+                                   required>
+
+                        </div>
+
+
+                        <button type="submit"
+                                class="add-button"
+                                ng-click="addProduct()"
+                                ng-disabled="productForm.$invalid">
+
+                            <span>+</span>
+
+                            Add Product
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- SEARCH AND FILTER -->
+
+                <div class="products-toolbar">
+
+                    <div class="search-wrapper">
+                        <span class="search-icon">⌕</span>
+
+                        <input class="search-box"
+                            type="text"
+                            placeholder="Search products by name or category..."
+                            ng-model="searchText"
+                            ng-change="searchProducts()">
+                    </div>
+
+                    <select class="category-filter"
+                            ng-model="selectedCategory">
+
+                        <option value="">All Categories</option>
+
+                        <option ng-repeat="category in getCategories()"
+                                value="{{ category }}">
+                            {{ category }}
+                        </option>
+
+                    </select>
+
+                    <select class="sort-filter"
+                            ng-model="sortOption">
+
+                        <option value="">Sort By</option>
+                        <option value="name">Name A-Z</option>
+                        <option value="-name">Name Z-A</option>
+                        <option value="price">Price Low-High</option>
+                        <option value="-price">Price High-Low</option>
+                        <option value="quantity">Quantity Low-High</option>
+                        <option value="-quantity">Quantity High-Low</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- PRODUCT LIST -->
+
+                <div class="product-list"
+                     ng-if="products.length > 0">
+
+                    <div class="product-card"
+                         ng-repeat="product in products | filter:searchText | filter:{category:selectedCategory} | orderBy:sortOption">
+
+
+                        <!-- PRODUCT INFORMATION -->
+
+                        <div class="product-info">
+
+                            <div class="product-image">
+
+                                {{ product.name.charAt(0).toUpperCase() }}
+
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    {{ product.name }}
+                                </h3>
+
+                                <span class="category">
+                                    {{ product.category }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PRODUCT DETAILS -->
+
+                        <div class="product-details">
+
+
+                            <div>
+
+                                <small>
+                                    PRICE
+                                </small>
+
+                                <strong>
+                                    ₹{{ product.price }}
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <small>
+                                    QUANTITY
+                                </small>
+
+                                <strong>
+                                    {{ product.quantity }}
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <small>
+                                    MIN STOCK
+                                </small>
+
+                                <strong>
+                                    {{ product.minStock }}
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <small>
+                                    MAX STOCK
+                                </small>
+
+                                <strong>
+                                    {{ product.maxStock }}
+                                </strong>
+
+                            </div>
+
+
+                            <!-- STOCK STATUS -->
+
+                            <div>
+
+                                <small>
+                                    STATUS
+                                </small>
+
+                                <span class="stock-status"
+                                      ng-class="{
+                                          'healthy': product.quantity > product.minStock && product.quantity <= product.maxStock,
+                                          'low': product.quantity <= product.minStock,
+                                          'overstocked': product.quantity > product.maxStock
+                                      }">
+
+                                    <span ng-if="product.quantity <= product.minStock">
+                                        Low Stock
+                                    </span>
+
+                                    <span ng-if="product.quantity > product.minStock && product.quantity <= product.maxStock">
+                                        Healthy
+                                    </span>
+
+                                    <span ng-if="product.quantity > product.maxStock">
+                                        Overstocked
+                                    </span>
+
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- PRODUCT ACTIONS -->
+
+                        <div class="product-actions">
+
+                            <button type="button"
+                                    class="edit-button"
+                                    ng-click="editProduct(product)">
+
+                                Edit
+
+                            </button>
+
+
+                            <button type="button"
+                                    class="delete-button"
+                                    ng-click="deleteProduct(product)">
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- EMPTY STATE -->
+
+                <div class="empty-state"
+                     ng-if="products.length === 0">
+
+                    <div class="empty-icon">
+                        ▦
+                    </div>
+
+                    <h3>
+                        No products yet
+                    </h3>
+
+                    <p>
+                        Add your first product to start managing your inventory.
+                    </p>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- EDIT PRODUCT MODAL -->
+
+            <div class="modal-overlay"
+                 ng-if="editModalOpen"
+                 ng-click="closeEditModal()">
+
+
+                <div class="edit-modal"
+                     ng-click="$event.stopPropagation()">
+
+
+                    <!-- MODAL HEADER -->
+
+                    <div class="modal-header">
+
+                        <div>
+
+                            <span class="section-label">
+                                PRODUCT MANAGEMENT
+                            </span>
+
+                            <h2>
+                                Edit Product
+                            </h2>
+
+                            <p>
+                                Update the details of this inventory product.
+                            </p>
+
+                        </div>
+
+
+                        <button type="button"
+                                class="modal-close"
+                                ng-click="closeEditModal()">
+
+                            ×
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- EDIT FORM -->
+
+                    <form name="editProductForm" novalidate>
+
+
+                        <div class="modal-form-grid">
+
+
+                            <div class="form-field">
+
+                                <label>
+                                    Product Name
+                                </label>
+
+                                <input type="text"
+                                       ng-model="editingProduct.name"
+                                       placeholder="Product name"
+                                       required>
+
+                            </div>
+
+
+                            <div class="form-field">
+
+                                <label>
+                                    Category
+                                </label>
+
+                                <input type="text"
+                                       ng-model="editingProduct.category"
+                                       placeholder="Category"
+                                       required>
+
+                            </div>
+
+
+                            <div class="form-field">
+
+                                <label>
+                                    Price
+                                </label>
+
+                                <input type="number"
+                                       ng-model="editingProduct.price"
+                                       min="0"
+                                       placeholder="0"
+                                       required>
+
+                            </div>
+
+
+                            <div class="form-field">
+
+                                <label>
+                                    Quantity
+                                </label>
+
+                                <input type="number"
+                                       ng-model="editingProduct.quantity"
+                                       min="0"
+                                       placeholder="0"
+                                       required>
+
+                            </div>
+
+
+                            <div class="form-field">
+
+                                <label>
+                                    Minimum Stock
+                                </label>
+
+                                <input type="number"
+                                       ng-model="editingProduct.minStock"
+                                       min="0"
+                                       placeholder="5"
+                                       required>
+
+                            </div>
+
+
+                            <div class="form-field">
+
+                                <label>
+                                    Maximum Stock
+                                </label>
+
+                                <input type="number"
+                                       ng-model="editingProduct.maxStock"
+                                       min="0"
+                                       placeholder="100"
+                                       required>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- MODAL ACTIONS -->
+
+                        <div class="modal-actions">
+
+                            <button type="button"
+                                    class="cancel-button"
+                                    ng-click="closeEditModal()">
+
+                                Cancel
+
+                            </button>
+
+
+                            <button type="button"
+                                    class="save-button"
+                                    ng-click="saveEditedProduct()"
+                                    ng-disabled="editProductForm.$invalid">
+
+                                Save Changes
+
+                            </button>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+        </main>
+
+    </div>
+
+
+    <!-- AUTHENTICATION -->
+
+    <script>
+
+        var loggedInUser =
+            localStorage.getItem("smartInventoryUser");
+
+        if (!loggedInUser) {
+
+            window.location.href = "login.html";
+
+        } else {
+
+            var user = JSON.parse(loggedInUser);
+
+            document.getElementById("userName").textContent =
+                user.name || "User";
+
+            document.getElementById("welcomeName").textContent =
+                user.name ? ", " + user.name : "";
+
+            document.getElementById("userAvatar").textContent =
+                user.name
+                    ? user.name.charAt(0).toUpperCase()
+                    : "U";
+        }
+
+
+        function logoutUser() {
+
+            localStorage.removeItem("smartInventoryUser");
+
+            window.location.href = "login.html";
+
+        }
+
+    </script>
+
+
+    <!-- ANGULARJS -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <script src="js/app.js"></script>
+
+    <script src="js/inventoryService.js"></script>
+
+    <script src="js/productController.js"></script>
+
+</body>
+
+</html>
