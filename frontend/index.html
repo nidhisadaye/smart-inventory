@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en" ng-app="smartInventoryApp">
 
@@ -10,7 +10,7 @@
     <title>Smart Inventory System</title>
 
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 
 <body ng-controller="ProductController">
@@ -34,19 +34,28 @@
 
             <nav class="sidebar-nav">
 
-                <a href="index.html" class="nav-item active">
-                    <span class="nav-icon">⌂</span>
+                <a href="#dashboard" class="nav-item">
+                    <span>🏠</span>
                     <span>Dashboard</span>
                 </a>
 
                 <a href="#products" class="nav-item">
-                    <span class="nav-icon">▦</span>
+                    <span>📦</span>
                     <span>Products</span>
                 </a>
 
-                <a href="#" class="nav-item"
-                   onclick="return false;">
-                    <span class="nav-icon">⚙</span>
+                <a href="#stockManagement" class="nav-item">
+                    <span>📥</span>
+                    <span>Stock In / Out</span>
+                </a>
+
+                <a href="#inventoryReport" class="nav-item">
+                    <span>📊</span>
+                    <span>Inventory Report</span>
+                </a>
+
+                <a href="#settings" class="nav-item">
+                    <span>⚙️</span>
                     <span>Settings</span>
                 </a>
 
@@ -71,7 +80,7 @@
                         class="logout-button"
                         onclick="logoutUser()">
 
-                    <span>↪</span>
+                    <span>&#8592;</span>
                     Logout
 
                 </button>
@@ -94,7 +103,7 @@
                     </span>
 
                     <h1>
-                        Good to see you<span id="welcomeName"></span> 👋
+                        Good to see you<span id="welcomeName"></span> &#128075;
                     </h1>
 
                     <p>
@@ -118,80 +127,42 @@
 
             <section class="dashboard">
 
-                <div class="dashboard-card">
-
-                    <div class="card-icon purple">
-                        ▦
-                    </div>
-
-                    <span>Total Products</span>
-
-                    <strong>
-                        {{ products.length }}
-                    </strong>
-
-                    <small>
-                        Products in catalog
-                    </small>
-
+               <!-- Total Products -->
+            <div class="dashboard-card">
+                <div class="card-icon purple">📦</div>
+                <div class="card-content">
+                    <span>Total Products =</span>
+                    <strong>{{ products.length }}</strong>
                 </div>
+            </div>
 
-
-                <div class="dashboard-card">
-
-                    <div class="card-icon blue">
-                        ≋
-                    </div>
-
-                    <span>Total Quantity</span>
-
-                    <strong>
-                        {{ getTotalQuantity() }}
-                    </strong>
-
-                    <small>
-                        Units currently available
-                    </small>
-
+            <!-- Total Quantity -->
+            <div class="dashboard-card">
+                <div class="card-icon blue">📥</div>
+                <div class="card-content">
+                    <span>Total Quantity =</span>
+                    <strong>{{ getTotalQuantity() }}</strong>
                 </div>
+            </div>
 
-
-                <div class="dashboard-card">
-
-                    <div class="card-icon green">
-                        ₹
-                    </div>
-
-                    <span>Inventory Value</span>
-
-                    <strong>
-                        ₹{{ getInventoryValue() }}
-                    </strong>
-
-                    <small>
-                        Current stock valuation
-                    </small>
-
+            <!-- Inventory Value -->
+            <div class="dashboard-card">
+                <div class="card-icon green">💰</div>
+                <div class="card-content">
+                    <span>Inventory Value =</span>
+                    <strong>₹{{ getInventoryValue() }}</strong>
                 </div>
+            </div>
 
-
-                <div class="dashboard-card low-stock">
-
-                    <div class="card-icon red">
-                        !
-                    </div>
-
-                    <span>Low Stock Items</span>
-
-                    <strong>
-                        {{ getLowStockCount() }}
-                    </strong>
-
-                    <small>
-                        Needs attention
-                    </small>
-
+            <!-- Low Stock -->
+            <div class="dashboard-card">
+                <div class="card-icon red">⚠️</div>
+                <div class="card-content">
+                    <span>Low Stock Items =</span>
+                    <strong>{{ getLowStockCount() }}</strong>
                 </div>
+            </div>
+               
 
             </section>
 
@@ -340,7 +311,7 @@
 
                         <button type="submit"
                                 class="add-button"
-                                ng-click="addProduct()"
+                                ng-submit="addProduct()"
                                 ng-disabled="productForm.$invalid">
 
                             <span>+</span>
@@ -359,7 +330,7 @@
                 <div class="products-toolbar">
 
                     <div class="search-wrapper">
-                        <span class="search-icon">⌕</span>
+                        <span class="search-icon">&#8981;</span>
 
                         <input class="search-box"
                             type="text"
@@ -442,7 +413,7 @@
                                 </small>
 
                                 <strong>
-                                    ₹{{ product.price }}
+                                    &#8377;{{ product.price }}
                                 </strong>
 
                             </div>
@@ -557,7 +528,7 @@
                      ng-if="products.length === 0">
 
                     <div class="empty-icon">
-                        ▦
+                        &#9632;
                     </div>
 
                     <h3>
@@ -573,6 +544,206 @@
 
             </section>
 
+
+
+            <!-- STOCK MANAGEMENT — MEMBER 2 -->
+
+            <section id="stock-management" class="stock-management-section">
+
+                <div class="section-header">
+                    <div class="section-title-group">
+                        
+                        <div>
+                            <h2>Stock In / Stock Out</h2>
+                            <p>Update product quantities quickly</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stock-controls">
+
+                    <div class="stock-field">
+                        <label>Select Product</label>
+                        <select ng-model="selectedProduct"
+                                ng-options="p as p.name for p in products track by p._id">
+                            <option value="">Choose a product</option>
+                        </select>
+                    </div>
+
+                    <div class="stock-field">
+                        <label>Quantity</label>
+                        <input type="number"
+                               ng-model="stockQty"
+                               min="1"
+                               placeholder="Enter quantity">
+                    </div>
+
+                    <div class="stock-actions">
+                        <button type="button"
+                                class="stock-in-btn"
+                                ng-click="addStock(selectedProduct, stockQty)"
+                                ng-disabled="!selectedProduct || !stockQty || stockQty <= 0">
+                            + Stock In
+                        </button>
+
+                        <button type="button"
+                                class="stock-out-btn"
+                                ng-click="removeStock(selectedProduct, stockQty)"
+                                ng-disabled="!selectedProduct || !stockQty || stockQty <= 0">
+                            − Stock Out
+                        </button>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- STOCK ALERTS — MEMBER 2 -->
+
+            <section class="stock-alerts-section">
+
+                <div class="section-header">
+                    <div class="section-title-group">
+                        
+                        <div>
+                            <h2>Stock Alerts</h2>
+                            <p>Products that need attention</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stock-alert-list">
+
+                    <div class="stock-alert-item"
+                         ng-repeat="product in products"
+                         ng-if="product.quantity <= product.minStock">
+
+                        <div class="alert-product-info">
+                            <strong>{{ product.name }}</strong>
+                            <span>{{ product.category }}</span>
+                        </div>
+
+                        <div class="alert-message"
+                             ng-if="product.quantity == 0">
+                            <span class="alert-badge danger">Out of Stock</span>
+                            <span>Urgent: stock is unavailable</span>
+                        </div>
+
+                        <div class="alert-message"
+                             ng-if="product.quantity > 0">
+                            <span class="alert-badge warning">Low Stock</span>
+                            <span>
+                                Reorder suggested: {{ getReorderQty(product) }} units
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="no-alerts"
+                         ng-if="products.length > 0 && getLowStockCount() === 0 && getOutOfStockCount() === 0">
+                        <span>✓</span>
+                        <strong>All stock levels look good</strong>
+                        <p>No products currently require attention.</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- INVENTORY REPORT — MEMBER 2 -->
+
+            <section id="inventoryReport" class="inventory-report-section">
+
+                <div class="section-header">
+                    <div class="section-title-group">
+                        
+                        <div>
+                            <h2>Inventory Report</h2>
+                            <p>Overview of your current inventory</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inventory-summary">
+
+                    <div class="report-stat">
+                        <span>Total Products</span>
+                        <strong>{{ products.length }}</strong>
+                    </div>
+
+                    <div class="report-stat">
+                        <span>Available</span>
+                        <strong>{{ getAvailableCount() }}</strong>
+                    </div>
+
+                    <div class="report-stat">
+                        <span>Low Stock</span>
+                        <strong>{{ getLowStockCount() }}</strong>
+                    </div>
+
+                    <div class="report-stat">
+                        <span>Out of Stock</span>
+                        <strong>{{ getOutOfStockCount() }}</strong>
+                    </div>
+
+                </div>
+
+                <div class="category-report">
+
+                    <div class="category-report-header">
+                        <h3>Category-wise Stock</h3>
+                        <span>{{ getCategories().length }} categories</span>
+                    </div>
+
+                    <div class="table-wrapper">
+
+                        <table class="inventory-report-table">
+
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Products</th>
+                                    <th>Total Stock</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr ng-repeat="cat in getCategorySummary()">
+
+                                    <td>
+                                        <strong>{{ cat.name }}</strong>
+                                    </td>
+
+                                    <td>
+                                        {{ cat.count }}
+                                    </td>
+
+                                    <td>
+                                        <span class="stock-number">
+                                            {{ cat.stock }}
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+                                <tr ng-if="getCategorySummary().length === 0">
+                                    <td colspan="3" class="empty-report">
+                                        No inventory data available.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
 
             <!-- EDIT PRODUCT MODAL -->
 
@@ -610,7 +781,7 @@
                                 class="modal-close"
                                 ng-click="closeEditModal()">
 
-                            ×
+                            &#215;
 
                         </button>
 
@@ -805,3 +976,7 @@
 </body>
 
 </html>
+
+
+
+
