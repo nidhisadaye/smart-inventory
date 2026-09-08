@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="inventoryApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Inventory System</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body ng-controller="InventoryController">
+
+  <h1>📦 Smart Inventory System</h1>
+  <div class="banner" ng-if="connectionError">⚠️ Cannot connect to server. Please check if the backend is running.</div>
+
+  <!-- ================= DASHBOARD (Member 1) ================= -->
+  <div class="dashboard">
+    <div class="card">Total Products<br><b>{{ products.length }}</b></div>
+    <div class="card">Total Stock<br><b>{{ getTotalStock() }}</b></div>
+    <div class="card low">Low Stock<br><b>{{ getLowStockCount() }}</b></div>
+    <div class="card out">Out of Stock<br><b>{{ getOutOfStockCount() }}</b></div>
+  </div>
+
+  <!-- ================= ADD PRODUCT (Member 1) ================= -->
+  <div class="section">
+    <h2>Add Product</h2>
+    <input type="text" ng-model="newProduct.name" placeholder="Product Name">
+    <input type="text" ng-model="newProduct.category" placeholder="Category">
+    <input type="number" ng-model="newProduct.price" placeholder="Price">
+    <input type="number" ng-model="newProduct.quantity" placeholder="Quantity">
+    <input type="number" ng-model="newProduct.minStock" placeholder="Min Stock">
+    <input type="number" ng-model="newProduct.maxStock" placeholder="Max Stock">
+    <button ng-click="addProduct()">Add Product</button>
+  </div>
+
+  <!-- ================= PRODUCT LIST (Member 1) ================= -->
+  <div class="section">
+    <h2>Product List</h2>
+    <input type="text" ng-model="searchText" placeholder="Search products...">
+    <table>
+      <tr>
+        <th>Name</th><th>Category</th><th>Price</th><th>Qty</th><th>Status</th><th>Action</th>
+      </tr>
+      <tr ng-repeat="product in products | filter:searchText">
+        <td>{{ product.name }}</td>
+        <td>{{ product.category }}</td>
+        <td>₹{{ product.price }}</td>
+        <td>{{ product.quantity }}</td>
+        <td>
+          <span ng-if="product.quantity == 0" class="out">Out of Stock</span>
+          <span ng-if="product.quantity > 0 && product.quantity <= product.minStock" class="low">Low Stock</span>
+          <span ng-if="product.quantity > product.minStock" class="ok">Available</span>
+        </td>
+        <td>
+          <button ng-click="deleteProduct(product)">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ================= STOCK MANAGEMENT (YOU - Member 2) ================= -->
+  <div class="section">
+    <h2>Stock In / Stock Out</h2>
+    <select ng-model="selectedProduct" ng-options="p as p.name for p in products track by p._id"></select>
+    <input type="number" ng-model="stockQty" placeholder="Quantity">
+    <button ng-click="addStock(selectedProduct, stockQty)">Stock In</button>
+    <button ng-click="removeStock(selectedProduct, stockQty)">Stock Out</button>
+  </div>
+
+  <!-- ================= ALERTS (YOU - Member 2) ================= -->
+  <div class="section">
+    <h2>Stock Alerts</h2>
+    <ul>
+      <li ng-repeat="product in products" ng-if="product.quantity <= product.minStock">
+        <span ng-if="product.quantity == 0">🔴 Urgent: {{ product.name }} is Out of Stock!</span>
+        <span ng-if="product.quantity > 0">⚠️ Reorder Suggested for {{ product.name }} (Suggested Order: {{ getReorderQty(product) }})</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ================= REPORTS (YOU - Member 2) ================= -->
+  <div class="section">
+    <h2>Inventory Report</h2>
+    <p>Total Products: {{ products.length }}</p>
+    <p>Available: {{ getAvailableCount() }}</p>
+    <p>Low Stock: {{ getLowStockCount() }}</p>
+    <p>Out of Stock: {{ getOutOfStockCount() }}</p>
+
+    <h3>Category-wise Stock</h3>
+    <table>
+      <tr><th>Category</th><th>Products</th><th>Total Stock</th></tr>
+      <tr ng-repeat="cat in getCategorySummary()">
+        <td>{{ cat.name }}</td>
+        <td>{{ cat.count }}</td>
+        <td>{{ cat.stock }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
